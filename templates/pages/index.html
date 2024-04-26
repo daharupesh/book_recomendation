@@ -1,0 +1,84 @@
+{% load custom_filters %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Book Recommendation System</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link href='http://fonts.googleapis.com/css?family=Oswald:300,400' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="content-block" id="header1">
+        <div id="overlay-1">
+            <header id="site-header" class="clearfix">
+                <div class="pull-left">
+                    <h1><a href="">BookGenius</a></h1>
+                </div>
+                <div class="pull-right">
+                    <nav class="navbar site-nav" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <i class="fa fa-bars fa-2x"></i>
+                            </button>
+                        </div> 
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/signout/"><i class="fa fa-sign-out"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            
+            <div class="container mt-5">
+                <form method="post" >
+                    {% csrf_token %}
+                    <div class="form-group search-bar-container text-center">
+                        <label for="book_name" style="font-size: 24px; margin-top: 10px;">Select Book:</label>
+                        <select class="form-control" id="book_name" name="book_name">
+                            {% for book in book_names %}
+                            <option value="{{ book }}">{{ book }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Recommend</button>
+                </form>
+        
+                {% if recommended_books %}
+                <div class="row mt-5">
+                    {% for book in recommended_books %}
+                    <div class="col-md-2">
+                        <h5>{{ book }}</h5>
+                        <img src="{{ poster_url|get_item:book }}" alt="{{ book }}" class="img-fluid">
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-info mt-3" role="alert">
+                    No books found for the selected book.
+                </div>
+                {% endif %}
+            </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="copyright">&copy; 2024 Book Recommendation System</div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="designed-by">Designed By <a href="http://themewagon.com/" target="_blank">Rupesh Kumar Daha</a></div>
+                </div>
+            </div>
+        </div>
+    </footer> 
+
+    <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

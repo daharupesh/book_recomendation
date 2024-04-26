@@ -1,0 +1,134 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login Page</title>
+
+    <link rel="shortcut icon" href="{% static 'assets/images/fav.jpg' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawsom-all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+
+    <style>
+        .messages {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            list-style-type: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .messages li {
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .messages li.error {
+            color: #721c24;
+            background-color: #f8d7da;
+        }
+
+        .messages li.success {
+            color: #155724;
+            background-color: #d4edda;
+        }
+
+        .messages li.info {
+            color: #0c5460;
+            background-color: #d1ecf1;
+        }
+
+        .messages li.warning {
+            color: #856404;
+            background-color: #fff3cd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-10 login-box">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-7 log-det">
+                            <a href="/">
+                            <div class="small-logo">
+                                <i class="fas fa-book"></i> BookGenius
+                            </div>
+                             </a>                            
+                            <h2>Sign in to BookGenius</h2>
+                            <div class="row">
+                                <ul>
+                                    <li><i class="fab fa-facebook-f"></i></li>
+                                    <li><i class="fab fa-twitter"></i></li>
+                                    <li><i class="fab fa-linkedin-in"></i></li>
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <p class="small-info">or use your email account</p>
+                            </div>
+                            <form class="login-form" action="{% url 'signin' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="text-box-cont">
+                                    <div class="input-group mb-3 rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                        </div>
+                                        <input type="text" id="username" name="username" class="form-control rounded" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group mb-3 rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                                        </div>
+                                        <input type="password" id="password" name="password" class="form-control rounded" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="row">
+                                        <p class="forget-p">Forget Password ?</p>
+                                    </div>
+                                    <div class="input-group center mb-3">
+                                        <a href="/mainpage/" type="submit" class="btn btn-success btn-round">SIGN IN</a>
+                                    </div>    
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-4 col-md-5 box-de">
+                            <div class="ditk-inf">
+                                <h2 class="w-100">Don't Have an Account </h2>
+                                <p>Simply Create your account by clicking the Signup Button</p>
+                                <a href="{% url 'signup' %}">
+                                    <button type="button" class="btn btn-outline-light">SIGN UP</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+</body>
+
+<script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+
+</html>
